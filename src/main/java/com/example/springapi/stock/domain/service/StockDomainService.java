@@ -9,7 +9,7 @@ public class StockDomainService {
 
     public Stock increase(Stock stock, BigDecimal addQty) {
         return Stock.builder()
-                .id(stock.getId())
+                .stockNo(stock.getStockNo())
                 .corpCode(stock.getCorpCode())
                 .warehouseCode(stock.getWarehouseCode())
                 .itemCode(stock.getItemCode())

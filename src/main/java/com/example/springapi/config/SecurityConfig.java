@@ -15,10 +15,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(new AntPathRequestMatcher("/api/**")).authenticated()
+                    .requestMatchers(new AntPathRequestMatcher("/api/**")).permitAll()
                     .anyRequest().permitAll()
-            )
-            .httpBasic(Customizer.withDefaults()); // 一時的、後でJWTに置き換え
+            );
 
         return http.build();
     }

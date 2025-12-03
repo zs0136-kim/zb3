@@ -18,8 +18,8 @@ public class StockApplicationService {
 
     private final StockRepository stockRepository;
 
-    public StockResponse get(Long id) {
-        Stock stock = stockRepository.findById(id)
+    public StockResponse get(String stockNo) {
+        Stock stock = stockRepository.findById(stockNo)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
         return toResponse(stock);
     }
@@ -43,12 +43,12 @@ public class StockApplicationService {
         return toResponse(saved);
     }
 
-    public StockResponse update(Long id, StockRequest request) {
-        Stock existing = stockRepository.findById(id)
+    public StockResponse update(String stockNo, StockRequest request) {
+        Stock existing = stockRepository.findById(stockNo)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
 
         Stock updated = Stock.builder()
-                .id(existing.getId())
+                .stockNo(existing.getStockNo())
                 .corpCode(request.getCorpCode())
                 .warehouseCode(request.getWarehouseCode())
                 .itemCode(request.getItemCode())
@@ -65,7 +65,7 @@ public class StockApplicationService {
 
     private StockResponse toResponse(Stock stock) {
         return StockResponse.builder()
-                .id(stock.getId())
+                .stockNo(stock.getStockNo())
                 .corpCode(stock.getCorpCode())
                 .warehouseCode(stock.getWarehouseCode())
                 .itemCode(stock.getItemCode())

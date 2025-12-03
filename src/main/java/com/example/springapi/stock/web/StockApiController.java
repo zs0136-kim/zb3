@@ -10,17 +10,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/api/v1/stocks")
 @RequiredArgsConstructor
 public class StockApiController extends BaseApiController {
 
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
     private final StockApplicationService stockApplicationService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<StockResponse>> get(@PathVariable Long id) {
-        StockResponse res = stockApplicationService.get(id);
+    @GetMapping("/{stockNo}")
+    public ResponseEntity<ApiResponse<StockResponse>> get(@PathVariable String stockNo) {
+        
+        // テスト
+        // stockNo = 0000000001
+        StockResponse res = stockApplicationService.get(stockNo);
+
+        log.info("StockResponse: {}", res);
+        
         return ok(res);
     }
 
@@ -38,10 +48,10 @@ public class StockApiController extends BaseApiController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<StockResponse>> update(
-            @PathVariable Long id,
+            @PathVariable String stockNo,
             @RequestBody StockRequest request
     ) {
-        StockResponse updated = stockApplicationService.update(id, request);
+        StockResponse updated = stockApplicationService.update(stockNo, request);
         return ok(updated);
     }
 

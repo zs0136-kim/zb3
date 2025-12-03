@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface StockMapper {
 
-    StockEntity selectById(Long id);
+    StockEntity selectById(String stockNo);
 
     List<StockEntity> selectByCondition(StockSearchCondition condition);
 

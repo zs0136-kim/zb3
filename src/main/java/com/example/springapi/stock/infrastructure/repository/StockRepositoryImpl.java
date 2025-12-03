@@ -16,8 +16,8 @@ public class StockRepositoryImpl implements StockRepository {
     private final StockMapper mapper;
 
     @Override
-    public Optional<Stock> findById(Long id) {
-        StockEntity e = mapper.selectById(id);
+    public Optional<Stock> findById(String stockNo) {
+        StockEntity e = mapper.selectById(stockNo);
         return Optional.ofNullable(e).map(this::toDomain);
     }
 
@@ -32,7 +32,7 @@ public class StockRepositoryImpl implements StockRepository {
     @Override
     public Stock save(Stock stock) {
         StockEntity e = toEntity(stock);
-        if (e.getId() == null) {
+        if (e.getStockNo() == null) {
             mapper.insert(e);
             // PK設定方式に応じてここで再取得 or selectKey使用
         } else {
@@ -48,21 +48,23 @@ public class StockRepositoryImpl implements StockRepository {
 
     private Stock toDomain(StockEntity e) {
         return Stock.builder()
-                .id(e.getId())
+                .stockNo(e.getStockNo())
                 .corpCode(e.getCorpCode())
                 .warehouseCode(e.getWarehouseCode())
                 .itemCode(e.getItemCode())
-                .quantity(e.getQuantity())
+                // 在庫数量をドメインの数量にマッピング
+                .quantity(e.getStockQuantity())
                 .build();
     }
 
     private StockEntity toEntity(Stock d) {
         StockEntity e = new StockEntity();
-        e.setId(d.getId());
+        e.setStockNo(d.getStockNo());
         e.setCorpCode(d.getCorpCode());
         e.setWarehouseCode(d.getWarehouseCode());
         e.setItemCode(d.getItemCode());
-        e.setQuantity(d.getQuantity());
+        // ドメインの数量を在庫数量にマッピング
+        e.setStockQuantity(d.getQuantity());
         return e;
     }
 }

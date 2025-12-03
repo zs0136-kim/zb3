@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springapi.stock.infrastructure.mapper.StockMapper">
+
+  <!-- 在庫取得（ID指定） -->
+  <!-- アプリ側のID = T_STOCK.STOCK_NO を前提としたシンプルな取得 -->
+  <select id="selectById"
+          parameterType="string"
+          resultType="com.example.springapi.stock.infrastructure.repository.StockEntity">
+    SELECT
+      STOCK_NO        AS stockNo,
+      CORP_CODE       AS corpCode,
+      WAREHOUSE_CODE  AS warehouseCode,
+      ITEM_CODE       AS itemCode,
+      STOCK_QUANTITY  AS stockQuantity
+    FROM
+      T_STOCK
+    WHERE
+      STOCK_NO = #{stockNo}
+      AND STOCK_HISTORY_NO = '1'
+  </select>
+
+  <!-- 検索条件による在庫一覧取得 -->
+  <!-- 必要最低限の条件（会社・倉庫・商品）だけを利用 -->
+  <select id="selectByCondition"
+          parameterType="com.example.springapi.stock.web.dto.StockSearchCondition"
+          resultType="com.example.springapi.stock.infrastructure.repository.StockEntity">
+    SELECT
+      STOCK_NO        AS stockNo,
+      CORP_CODE       AS corpCode,
+      WAREHOUSE_CODE  AS warehouseCode,
+      ITEM_CODE       AS itemCode,
+      STOCK_QUANTITY  AS stockQuantity
+    FROM
+      T_STOCK
+    WHERE
+      1 = 1
+    <if test="corpCode != null and corpCode != ''">
+      AND CORP_CODE = #{corpCode}
+    </if>
+    <if test="warehouseCode != null and warehouseCode != ''">
+      AND WAREHOUSE_CODE = #{warehouseCode}
+    </if>
+    <if test="itemCode != null and itemCode != ''">
+      AND ITEM_CODE = #{itemCode}
+    </if>
+  </select>
+
+  <!-- 在庫新規登録 -->
+  <!-- STOCK_NO はオートナンバー（AUTO_INCREMENT）を想定し、useGeneratedKeys で取得 -->
+  <insert id="insert"
+          parameterType="com.example.springapi.stock.infrastructure.repository.StockEntity"
+          useGeneratedKeys="true"
+          keyProperty="stockNo">
+    INSERT INTO T_STOCK (
+      CORP_CODE,
+      WAREHOUSE_CODE,
+      ITEM_CODE,
+      STOCK_QUANTITY
+    )
+    VALUES (
+      #{corpCode},
+      #{warehouseCode},
+      #{itemCode},
+      #{stockQuantity}
+    )
+  </insert>
+
+  <!-- 在庫更新 -->
+  <!-- ID（STOCK_ID）で 1 レコードを更新する前提 -->
+  <update id="update"
+          parameterType="com.example.springapi.stock.infrastructure.repository.StockEntity">
+    UPDATE
+      T_STOCK
+    SET
+      CORP_CODE       = #{corpCode},
+      WAREHOUSE_CODE  = #{warehouseCode},
+      ITEM_CODE       = #{itemCode},
+      STOCK_QUANTITY  = #{stockQuantity}
+    WHERE
+      STOCK_NO = #{stockNo}
+      AND STOCK_HISTORY_NO = '1'
+  </update>
+
+  <!-- 在庫削除 -->
+  <delete id="delete" parameterType="string">
+    DELETE FROM
+      T_STOCK
+    WHERE
+      STOCK_NO = #{stockNo}
+      AND STOCK_HISTORY_NO = '1'
+  </delete>
+
+</mapper>
+
+

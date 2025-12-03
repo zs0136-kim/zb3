@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface StockRepository {
 
-    Optional<Stock> findById(Long id);
+    Optional<Stock> findById(String stockNo);
 
     List<Stock> findByCondition(StockSearchCondition condition);
 

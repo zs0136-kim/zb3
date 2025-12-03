@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Builder
 public class Stock {
 
-    private final Long id;
+    private final String stockNo;
     private final String corpCode;
     private final String warehouseCode;
     private final String itemCode;

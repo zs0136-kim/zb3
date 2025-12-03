@@ -44,6 +44,20 @@ dependencies {
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // zb2
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	implementation 'org.apache.commons:commons-lang3'
+	implementation 'org.apache.commons:commons-dbcp2'
+	implementation 'com.fasterxml.jackson.core:jackson-core'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations'
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'commons-beanutils:commons-beanutils:1.9.4'
+	implementation 'org.apache.commons:commons-csv:1.10.0'
+    implementation 'org.jsoup:jsoup:1.16.1'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv'
 }
 
 tasks.named('test') {
