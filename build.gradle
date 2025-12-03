@@ -28,6 +28,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     
+    // OpenAPI / Swagger UI (Spring Boot 3.x 対応)
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+    
     // MyBatis (Spring Boot 3.x と互換性のある最新安定版)
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
     
