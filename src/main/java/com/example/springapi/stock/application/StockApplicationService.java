@@ -12,18 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 在庫管理アプリケーションサービス。
+ */
 @Service
 @RequiredArgsConstructor
 public class StockApplicationService {
 
+    // 在庫管理リポジトリ
     private final StockRepository stockRepository;
 
+    // 在庫1件取得
     public StockResponse get(String stockNo) {
         Stock stock = stockRepository.findById(stockNo)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
         return toResponse(stock);
     }
 
+    // 在庫検索
     public List<StockResponse> search(StockSearchCondition condition) {
         return stockRepository.findByCondition(condition)
                 .stream()
@@ -31,6 +37,7 @@ public class StockApplicationService {
                 .collect(Collectors.toList());
     }
 
+    // 在庫新規登録
     public StockResponse create(StockRequest request) {
         Stock stock = Stock.builder()
                 .corpCode(request.getCorpCode())
@@ -43,6 +50,7 @@ public class StockApplicationService {
         return toResponse(saved);
     }
 
+    // 在庫更新
     public StockResponse update(String stockNo, StockRequest request) {
         Stock existing = stockRepository.findById(stockNo)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND));
@@ -59,10 +67,12 @@ public class StockApplicationService {
         return toResponse(saved);
     }
 
+    // 在庫削除
     public void delete(Long id) {
         stockRepository.delete(id);
     }
 
+    // 在庫情報をResponseオブジェクトに変換
     private StockResponse toResponse(Stock stock) {
         return StockResponse.builder()
                 .stockNo(stock.getStockNo())

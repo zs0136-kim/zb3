@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.2.0'
+    id 'org.springframework.boot' version '3.3.0'
     id 'io.spring.dependency-management' version '1.1.4'
 }
 
@@ -10,6 +10,11 @@ version = '0.0.1-SNAPSHOT'
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // リフレクションでメソッド引数名を取得できるようにする
+    options.compilerArgs += ['-parameters']
 }
 
 configurations {
@@ -40,9 +45,18 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     
     // JWT
-    // implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // SFTP
+    implementation 'com.jcraft:jsch:0.1.55'
+
+    // OAuth2 Resource Server (optional, enable when needed)
+    // implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

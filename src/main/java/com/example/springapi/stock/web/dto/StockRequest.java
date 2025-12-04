@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+/**
+ * 在庫の新規登録・更新に使用する入力用DTO。
+ */
 @Getter
 @Setter
 @Schema(description = "在庫登録・更新リクエストDTO") // 在庫の新規登録・更新に使用する入力用DTO

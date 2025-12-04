@@ -1,0 +1,95 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used to sign JWT tokens.",
+      "sourceType": "com.example.springapi.config.JwtProperties"
+    },
+    {
+      "name": "jwt.access-token-expiration",
+      "type": "java.lang.Long",
+      "description": "Access token validity in milliseconds.",
+      "sourceType": "com.example.springapi.config.JwtProperties"
+    },
+    {
+      "name": "jwt.refresh-token-expiration",
+      "type": "java.lang.Long",
+      "description": "Refresh token validity in milliseconds.",
+      "sourceType": "com.example.springapi.config.JwtProperties"
+    },
+    {
+      "name": "jwt.issuer",
+      "type": "java.lang.String",
+      "description": "Issuer claim applied to generated tokens.",
+      "sourceType": "com.example.springapi.config.JwtProperties"
+    },
+    {
+      "name": "security.user.table",
+      "type": "java.lang.String",
+      "description": "Database table name storing user accounts.",
+      "sourceType": "com.example.springapi.config.SecurityUserProperties"
+    },
+    {
+      "name": "cors.allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "description": "List of allowed origins for CORS.",
+      "sourceType": "com.example.springapi.config.CorsProperties"
+    },
+    {
+      "name": "sftp.host",
+      "type": "java.lang.String",
+      "description": "SFTP server host.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.port",
+      "type": "java.lang.Integer",
+      "description": "SFTP server port.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.username",
+      "type": "java.lang.String",
+      "description": "SFTP login user name.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.password",
+      "type": "java.lang.String",
+      "description": "SFTP login password.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.private-key-path",
+      "type": "java.lang.String",
+      "description": "Path to the private key file for SFTP authentication.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.passphrase",
+      "type": "java.lang.String",
+      "description": "Passphrase for the private key if necessary.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.connect-timeout",
+      "type": "java.lang.Integer",
+      "description": "Connection timeout in milliseconds.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.socket-timeout",
+      "type": "java.lang.Integer",
+      "description": "Socket timeout in milliseconds.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    },
+    {
+      "name": "sftp.base-directory",
+      "type": "java.lang.String",
+      "description": "Base directory prepended to every remote path.",
+      "sourceType": "com.example.springapi.common.sftp.SftpProperties"
+    }
+  ]
+}
+

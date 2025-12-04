@@ -6,6 +6,9 @@ import lombok.Getter;
 
 import java.math.BigDecimal;
 
+/**
+ * 在庫情報をフロントに返却するためのDTO。
+ */
 @Getter
 @Builder
 @Schema(description = "在庫レスポンスDTO") // 在庫情報をフロントに返却するためのDTO
