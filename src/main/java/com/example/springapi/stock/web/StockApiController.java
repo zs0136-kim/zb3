@@ -30,9 +30,10 @@ public class StockApiController extends BaseApiController {
     @GetMapping("/{stockNo}")
     public ResponseEntity<ApiResponse<StockResponse>> get(
             @Parameter(description = "在庫番号", required = true) // 在庫キーとなる在庫番号
-            @PathVariable String stockNo
+            @PathVariable(name = "stockNo") String stockNo
     ) {
         // テスト：stockNo = 0000000001
+        // http://localhost:8080/api/v1/stocks/0000000001
         StockResponse res = stockApplicationService.get(stockNo);
 
         log.info("StockResponse: {}", res);
@@ -58,7 +59,7 @@ public class StockApiController extends BaseApiController {
     @PutMapping("/{stockNo}")
     public ResponseEntity<ApiResponse<StockResponse>> update(
             @Parameter(description = "在庫番号", required = true)
-            @PathVariable String stockNo,
+            @PathVariable(name = "stockNo") String stockNo,
             @RequestBody StockRequest request
     ) {
         StockResponse updated = stockApplicationService.update(stockNo, request);
@@ -69,7 +70,7 @@ public class StockApiController extends BaseApiController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(
             @Parameter(description = "在庫ID", required = true)
-            @PathVariable Long id
+            @PathVariable(name = "id") Long id
     ) {
         stockApplicationService.delete(id);
         return noContent();

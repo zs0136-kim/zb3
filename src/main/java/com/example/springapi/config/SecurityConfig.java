@@ -32,7 +32,9 @@ public class SecurityConfig {
             "/swagger-resources/**",
             
             // 在庫関連エンドポイント
-            "/api/v1/stocks/**"
+            "/api/v1/stocks/**",
+            // 出庫関連エンドポイント
+            "/api/v1/sends/**"
     };
 
     /**

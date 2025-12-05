@@ -63,7 +63,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 // テスト用除外
                 // 在庫関連エンドポイント
-                new AntPathRequestMatcher("/api/v1/stocks/**")
+                new AntPathRequestMatcher("/api/v1/stocks/**"),
+                // 出庫関連エンドポイント
+                new AntPathRequestMatcher("/api/v1/sends/**")
         );
     }
 

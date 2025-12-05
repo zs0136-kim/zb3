@@ -1,0 +1,141 @@
+package com.example.springapi.send.infrastructure.repository;
+
+import com.example.springapi.send.infrastructure.mapper.SendMapper;
+import com.example.springapi.send.web.dto.SendSearchCondition;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+import com.example.springapi.send.domain.model.Send;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Repository
+@RequiredArgsConstructor
+public class SendRepositoryImpl implements SendRepository {
+
+    private final SendMapper sendMapper;
+
+    @Override
+    public List<Send> selectByCondition(SendSearchCondition sendSearchCondition) {
+        return sendMapper.selectByCondition(sendSearchCondition)
+                .stream()
+                .map(this::toDomain)
+                .collect(Collectors.toList());
+    }
+    
+    private Send toDomain(SendEntity entity) {
+        return Send.builder()
+                .corpCode(entity.getCorpCode())
+                .processClassCode(entity.getProcessClassCode())
+                .sendNo(entity.getSendNo())
+                .revisionNo(entity.getRevisionNo())
+                .rbType(entity.getRbType())
+                .customerCode(entity.getCustomerCode())
+                .salesDeptCode(entity.getSalesDeptCode())
+                .salesStaffCode(entity.getSalesStaffCode())
+                .sendDate(entity.getSendDate())
+                .printSendNo(entity.getPrintSendNo())
+                .collectScheduleDate(entity.getCollectScheduleDate())
+                .taxEffectDate(entity.getTaxEffectDate())
+                .fixType(entity.getFixType())
+                .tradeClassifyCode(entity.getTradeClassifyCode())
+                .currencyCode(entity.getCurrencyCode())
+                .currencyRate(entity.getCurrencyRate())
+                .currencyRateId(entity.getCurrencyRateId())
+                .incotermCodeItem(entity.getIncotermCodeItem())
+                .incotermCodeTotal(entity.getIncotermCodeTotal())
+                .sellRecordDate(entity.getSellRecordDate())
+                .cutoffDateCode(entity.getCutoffDateCode())
+                .payCollectDateCodeMonth(entity.getPayCollectDateCodeMonth())
+                .payCollectDateCodeDate(entity.getPayCollectDateCodeDate())
+                .payCollectMethodCode(entity.getPayCollectMethodCode())
+                .billPeriod(entity.getBillPeriod())
+                .reckonConditionCode(entity.getReckonConditionCode())
+                .collectNote(entity.getCollectNote())
+                .deliveryReportNote(entity.getDeliveryReportNote())
+                .insideNote(entity.getInsideNote())
+                .sendFromWarehouseCode(entity.getSendFromWarehouseCode())
+                .divideOperationDate(entity.getDivideOperationDate())
+                .divideAfterWarehouseCode(entity.getDivideAfterWarehouseCode())
+                .warehouseCode(entity.getWarehouseCode())
+                .deliveryCode(entity.getDeliveryCode())
+                .deliveryNote(entity.getDeliveryNote())
+                .carrierCode(entity.getCarrierCode())
+                .carrierOrderNote(entity.getCarrierOrderNote())
+                .sendDeliveryOrderReportDate(entity.getSendDeliveryOrderReportDate())
+                .sendDeliveryOrderReportNumber(entity.getSendDeliveryOrderReportNumber())
+                .sendDeliveryOrderReportInstructions(entity.getSendDeliveryOrderReportInstructions())
+                .sourceSendNo(entity.getSourceSendNo())
+                .shipName(entity.getShipName())
+                .voyageNo(entity.getVoyageNo())
+                .shipLeaveDate(entity.getShipLeaveDate())
+                .shipArriveDate(entity.getShipArriveDate())
+                .invoiceCreateDate(entity.getInvoiceCreateDate())
+                .blCreateDate(entity.getBlCreateDate())
+                .loadCountryCode(entity.getLoadCountryCode())
+                .deliveryCountryCode(entity.getDeliveryCountryCode())
+                .shipPortCode(entity.getShipPortCode())
+                .loadPortCode(entity.getLoadPortCode())
+                .unloadPortCode(entity.getUnloadPortCode())
+                .viaPortCode(entity.getViaPortCode())
+                .finalDestinationPortCode(entity.getFinalDestinationPortCode())
+                .consignorCode(entity.getConsignorCode())
+                .consignorNote(entity.getConsignorNote())
+                .blReceiverCode(entity.getBlReceiverCode())
+                .blReceiverNote(entity.getBlReceiverNote())
+                .arrivalContact1(entity.getArrivalContact1())
+                .arrivalContact2(entity.getArrivalContact2())
+                .arrivalContact3(entity.getArrivalContact3())
+                .shippingCompany(entity.getShippingCompany())
+                .shippingBroker(entity.getShippingBroker())
+                .overseasCarrierCode(entity.getOverseasCarrierCode())
+                .bookingNo(entity.getBookingNo())
+                .blCreatePlace(entity.getBlCreatePlace())
+                .blType(entity.getBlType())
+                .blTypeOther(entity.getBlTypeOther())
+                .blPublishQuantity(entity.getBlPublishQuantity())
+                .serviceType(entity.getServiceType())
+                .passPlaceCode(entity.getPassPlaceCode())
+                .passDate(entity.getPassDate())
+                .cutDate(entity.getCutDate())
+                .informNote(entity.getInformNote())
+                .freightPayMethodCode(entity.getFreightPayMethodCode())
+                .sendReportFlagInvoice(entity.getSendReportFlagInvoice())
+                .sendReportFlagPackingList(entity.getSendReportFlagPackingList())
+                .sendReportFlagMillSheet(entity.getSendReportFlagMillSheet())
+                .sendReportFlagOthers(entity.getSendReportFlagOthers())
+                .sendReportOthers(entity.getSendReportOthers())
+                .blOrderNote(entity.getBlOrderNote())
+                .corpBankId(entity.getCorpBankId())
+                .shippingAdviceFlagInvoice(entity.getShippingAdviceFlagInvoice())
+                .shippingAdviceFlagPackingList(entity.getShippingAdviceFlagPackingList())
+                .shippingAdviceFlagBl(entity.getShippingAdviceFlagBl())
+                .shippingAdviceFlagInsurancePolicy(entity.getShippingAdviceFlagInsurancePolicy())
+                .shippingAdviceCountryOfOrigin(entity.getShippingAdviceCountryOfOrigin())
+                .shippingAdviceFlagMillSheet(entity.getShippingAdviceFlagMillSheet())
+                .shippingAdviceFlagCertificateOfAnalysis(entity.getShippingAdviceFlagCertificateOfAnalysis())
+                .shippingAdviceFlagTestCertification(entity.getShippingAdviceFlagTestCertification())
+                .shippingAdviceFlagCoilList(entity.getShippingAdviceFlagCoilList())
+                .shippingAdviceFlagOthers(entity.getShippingAdviceFlagOthers())
+                .shippingAdviceOthers(entity.getShippingAdviceOthers())
+                .customerInformNote(entity.getCustomerInformNote())
+                .m3ReportOutputFlag(entity.getM3ReportOutputFlag())
+                .machiningOrderProcessClassCode(entity.getMachiningOrderProcessClassCode())
+                .machiningOrderNo(entity.getMachiningOrderNo())
+                .sellAmount(entity.getSellAmount())
+                .sellTaxAmount(entity.getSellTaxAmount())
+                .baseSellAmount(entity.getBaseSellAmount())
+                .baseSellTaxAmount(entity.getBaseSellTaxAmount())
+                .dividePackingQuantity(entity.getDividePackingQuantity())
+                .divideSumReceiveQuantity(entity.getDivideSumReceiveQuantity())
+                .sealUserCode1(entity.getSealUserCode1())
+                .sealUserCode2(entity.getSealUserCode2())
+                .sealUserCode3(entity.getSealUserCode3())
+                .squareSealFlag(entity.getSquareSealFlag())
+                .latestDeliveryReportOutputDatetime(entity.getLatestDeliveryReportOutputDatetime())
+                .signatureUserCode(entity.getSignatureUserCode())
+                .signatureTitleCode(entity.getSignatureTitleCode())
+                .build();
+    }
+
+    // toEntity
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springapi.send.infrastructure.mapper.SendMapper">
+  <select id="selectByCondition" 
+      parameterType="com.example.springapi.send.web.dto.SendSearchCondition"
+      resultType="com.example.springapi.send.infrastructure.repository.SendEntity">
+    SELECT
+      *
+    FROM
+      T_SEND
+    WHERE
+      CORP_CODE = #{corpCode}
+      AND PROCESS_CLASS_CODE = #{processClassCode}
+      AND SEND_NO = #{sendNo}
+    ORDER BY
+      SEND_DATE DESC
+  </select>
+  
+</mapper>

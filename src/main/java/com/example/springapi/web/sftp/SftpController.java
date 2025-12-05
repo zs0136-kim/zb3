@@ -50,12 +50,14 @@ public class SftpController {
     }
 
     @GetMapping("/list")
-    public ApiResponse<SftpListResponse> list(@RequestParam @NotBlank String directory) {
+    public ApiResponse<SftpListResponse> list(
+            @RequestParam(name = "directory") @NotBlank String directory) {
         return ApiResponse.ok(sftpService.list(directory));
     }
 
     @DeleteMapping("/delete")
-    public ApiResponse<Void> delete(@RequestParam @NotBlank String remotePath) {
+    public ApiResponse<Void> delete(
+            @RequestParam(name = "remotePath") @NotBlank String remotePath) {
         sftpService.delete(remotePath);
         return ApiResponse.ok(null);
     }

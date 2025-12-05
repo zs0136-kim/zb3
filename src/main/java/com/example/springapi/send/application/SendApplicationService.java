@@ -1,0 +1,141 @@
+package com.example.springapi.send.application;
+
+import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import com.example.springapi.send.infrastructure.repository.SendRepository;
+import com.example.springapi.send.web.dto.SendSearchCondition;
+import com.example.springapi.send.domain.model.Send;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.example.springapi.send.web.dto.SendResponse;
+
+@Service
+@RequiredArgsConstructor
+public class SendApplicationService {
+    
+    private final SendRepository sendRepository;
+
+    // 出庫情報を検索
+    public List<SendResponse> search(SendSearchCondition sendSearchCondition) {
+        return sendRepository.selectByCondition(sendSearchCondition)
+                .stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    // 出庫情報をResponseオブジェクトに変換
+    private SendResponse toResponse(Send send) {
+        return SendResponse.builder()
+                .corpCode(send.getCorpCode())
+                .processClassCode(send.getProcessClassCode())
+                .sendNo(send.getSendNo())
+                .revisionNo(send.getRevisionNo())
+                .rbType(send.getRbType())
+                .customerCode(send.getCustomerCode())
+                .salesDeptCode(send.getSalesDeptCode())
+                .salesStaffCode(send.getSalesStaffCode())
+                .sendDate(send.getSendDate())
+                .printSendNo(send.getPrintSendNo())
+                .collectScheduleDate(send.getCollectScheduleDate())
+                .taxEffectDate(send.getTaxEffectDate())
+                .fixType(send.getFixType())
+                .tradeClassifyCode(send.getTradeClassifyCode())
+                .currencyCode(send.getCurrencyCode())
+                .currencyRate(send.getCurrencyRate())
+                .currencyRateId(send.getCurrencyRateId())
+                .incotermCodeItem(send.getIncotermCodeItem())
+                .incotermCodeTotal(send.getIncotermCodeTotal())
+                .sellRecordDate(send.getSellRecordDate())
+                .cutoffDateCode(send.getCutoffDateCode())
+                .payCollectDateCodeMonth(send.getPayCollectDateCodeMonth())
+                .payCollectDateCodeDate(send.getPayCollectDateCodeDate())
+                .payCollectMethodCode(send.getPayCollectMethodCode())
+                .billPeriod(send.getBillPeriod())
+                .reckonConditionCode(send.getReckonConditionCode())
+                .collectNote(send.getCollectNote())
+                .deliveryReportNote(send.getDeliveryReportNote())
+                .insideNote(send.getInsideNote())
+                .sendFromWarehouseCode(send.getSendFromWarehouseCode())
+                .divideOperationDate(send.getDivideOperationDate())
+                .divideAfterWarehouseCode(send.getDivideAfterWarehouseCode())
+                .warehouseCode(send.getWarehouseCode())
+                .deliveryCode(send.getDeliveryCode())
+                .deliveryNote(send.getDeliveryNote())
+                .carrierCode(send.getCarrierCode())
+                .carrierOrderNote(send.getCarrierOrderNote())
+                .sendDeliveryOrderReportDate(send.getSendDeliveryOrderReportDate())
+                .sendDeliveryOrderReportNumber(send.getSendDeliveryOrderReportNumber())
+                .sendDeliveryOrderReportInstructions(send.getSendDeliveryOrderReportInstructions())
+                .sourceSendNo(send.getSourceSendNo())
+                .shipName(send.getShipName())
+                .voyageNo(send.getVoyageNo())
+                .shipLeaveDate(send.getShipLeaveDate())
+                .shipArriveDate(send.getShipArriveDate())
+                .invoiceCreateDate(send.getInvoiceCreateDate())
+                .blCreateDate(send.getBlCreateDate())
+                .loadCountryCode(send.getLoadCountryCode())
+                .deliveryCountryCode(send.getDeliveryCountryCode())
+                .shipPortCode(send.getShipPortCode())
+                .loadPortCode(send.getLoadPortCode())
+                .unloadPortCode(send.getUnloadPortCode())
+                .viaPortCode(send.getViaPortCode())
+                .finalDestinationPortCode(send.getFinalDestinationPortCode())
+                .consignorCode(send.getConsignorCode())
+                .consignorNote(send.getConsignorNote())
+                .blReceiverCode(send.getBlReceiverCode())
+                .blReceiverNote(send.getBlReceiverNote())
+                .arrivalContact1(send.getArrivalContact1())
+                .arrivalContact2(send.getArrivalContact2())
+                .arrivalContact3(send.getArrivalContact3())
+                .shippingCompany(send.getShippingCompany())
+                .shippingBroker(send.getShippingBroker())
+                .overseasCarrierCode(send.getOverseasCarrierCode())
+                .bookingNo(send.getBookingNo())
+                .blCreatePlace(send.getBlCreatePlace())
+                .blType(send.getBlType())
+                .blTypeOther(send.getBlTypeOther())
+                .blPublishQuantity(send.getBlPublishQuantity())
+                .serviceType(send.getServiceType())
+                .passPlaceCode(send.getPassPlaceCode())
+                .passDate(send.getPassDate())
+                .cutDate(send.getCutDate())
+                .informNote(send.getInformNote())
+                .freightPayMethodCode(send.getFreightPayMethodCode())
+                .sendReportFlagInvoice(send.getSendReportFlagInvoice())
+                .sendReportFlagPackingList(send.getSendReportFlagPackingList())
+                .sendReportFlagMillSheet(send.getSendReportFlagMillSheet())
+                .sendReportFlagOthers(send.getSendReportFlagOthers())
+                .sendReportOthers(send.getSendReportOthers())
+                .blOrderNote(send.getBlOrderNote())
+                .corpBankId(send.getCorpBankId())
+                .shippingAdviceFlagInvoice(send.getShippingAdviceFlagInvoice())
+                .shippingAdviceFlagPackingList(send.getShippingAdviceFlagPackingList())
+                .shippingAdviceFlagBl(send.getShippingAdviceFlagBl())
+                .shippingAdviceFlagInsurancePolicy(send.getShippingAdviceFlagInsurancePolicy())
+                .shippingAdviceCountryOfOrigin(send.getShippingAdviceCountryOfOrigin())
+                .shippingAdviceFlagMillSheet(send.getShippingAdviceFlagMillSheet())
+                .shippingAdviceFlagCertificateOfAnalysis(send.getShippingAdviceFlagCertificateOfAnalysis())
+                .shippingAdviceFlagTestCertification(send.getShippingAdviceFlagTestCertification())
+                .shippingAdviceFlagCoilList(send.getShippingAdviceFlagCoilList())
+                .shippingAdviceFlagOthers(send.getShippingAdviceFlagOthers())
+                .shippingAdviceOthers(send.getShippingAdviceOthers())
+                .customerInformNote(send.getCustomerInformNote())
+                .m3ReportOutputFlag(send.getM3ReportOutputFlag())
+                .machiningOrderProcessClassCode(send.getMachiningOrderProcessClassCode())
+                .machiningOrderNo(send.getMachiningOrderNo())
+                .sellAmount(send.getSellAmount())
+                .sellTaxAmount(send.getSellTaxAmount())
+                .baseSellAmount(send.getBaseSellAmount())
+                .baseSellTaxAmount(send.getBaseSellTaxAmount())
+                .dividePackingQuantity(send.getDividePackingQuantity())
+                .divideSumReceiveQuantity(send.getDivideSumReceiveQuantity())
+                .sealUserCode1(send.getSealUserCode1())
+                .sealUserCode2(send.getSealUserCode2())
+                .sealUserCode3(send.getSealUserCode3())
+                .squareSealFlag(send.getSquareSealFlag())
+                .latestDeliveryReportOutputDatetime(send.getLatestDeliveryReportOutputDatetime())
+                .signatureUserCode(send.getSignatureUserCode())
+                .signatureTitleCode(send.getSignatureTitleCode())
+                .build();
+    }
+}
