@@ -31,6 +31,8 @@ dependencies {
     // Spring Boot Starter
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebClient 用
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     
     // OpenAPI / Swagger UI (Spring Boot 3.x 対応)
@@ -81,3 +83,7 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+// local
+bootRun {
+    systemProperty "spring.profiles.active", "local"
+}

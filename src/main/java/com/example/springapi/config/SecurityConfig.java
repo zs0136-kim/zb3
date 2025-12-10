@@ -4,6 +4,7 @@ import com.example.springapi.common.security.jwt.JwtAuthenticationEntryPoint;
 import com.example.springapi.common.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,12 +59,43 @@ public class SecurityConfig {
     }
 
     /**
+     * Graph API向けのOAuth2ログイン用フィルターチェーン。
+     * セッションを必要に応じて作成し、ブラウザ経由の認可コードフローを許可する。
+     */
+    @Bean
+    @Order(0)
+    public SecurityFilterChain graphOAuth2FilterChain(HttpSecurity http) throws Exception {
+        http
+                // Graph API向けのOAuth2ログイン用フィルターチェーン
+                .securityMatcher("/graph/**", "/oauth2/**", "/login/oauth2/**")
+                // CSRFを無効化
+                .csrf(csrf -> csrf.disable())
+                // CORSを有効化
+                .cors(Customizer.withDefaults())
+                // セッション管理を必要に応じて作成
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                // 認証が必要なエンドポイント
+                .authorizeHttpRequests(auth -> auth
+                        // Graph API向けのエンドポイント
+                        .requestMatchers("/graph/**").authenticated()
+                        // それ以外のエンドポイントは認証不要
+                        .anyRequest().permitAll()
+                )
+                // OAuth2ログインを有効化
+                .oauth2Login(Customizer.withDefaults());
+
+        // フィルターチェーンをビルドして返す
+        return http.build();
+    }
+
+    /**
      * APIフィルターチェーンを作成
      * @param http
      * @return
      * @throws Exception
      */
     @Bean
+    @Order(1)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())

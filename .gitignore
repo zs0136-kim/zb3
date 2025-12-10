@@ -64,3 +64,7 @@ application-*.yml
 *.swo
 *~
 
+# .env, local
+.env.local
+application-local.properties
+
