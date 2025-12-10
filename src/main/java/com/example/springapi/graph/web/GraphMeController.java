@@ -23,10 +23,13 @@ import org.springframework.core.ParameterizedTypeReference;
 @RequestMapping("/graph")
 public class GraphMeController {
 
+    // ログ
     private static final Logger log = LoggerFactory.getLogger(GraphMeController.class);
+    // マップ型のパラメータ化された型参照
     private static final ParameterizedTypeReference<Map<String, Object>> MAP_TYPE =
             new ParameterizedTypeReference<>() {};
 
+    // WebClient
     private final WebClient graphWebClient;
 
     public GraphMeController(WebClient graphWebClient) {
